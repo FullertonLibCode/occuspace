@@ -25,7 +25,7 @@
 <body style="position: fixed;
 width: 1480px;
 height: 820px;
-background-color: #00244E;">
+background-color: #00244e;">
 	<div id="le-conteneur">
 
 		<main id="availability">
@@ -33,14 +33,14 @@ background-color: #00244E;">
                 <div class="col">
                     <div class="col-md-6 column1">
 			<section id="seats">
-				<h1 class="header-north border-bottom"><b><span>Library North</span> Seating Availability</h1></b>
+				<h1 class="header-north border-bottom"><b><span>Library North</span> Seating</h1></b>
 				<div id="waitz-plbn"></div>
 			</section>
                     </div>
                 <div class="col-md-6 column-divider position: absolute"></div>
                 <div class="col-md-6 column2 position: relative">
 			<section id="seats">
-				<h1 class="header-south border-bottom"><b><span>Library South</span> Seating Availability</h1></b>
+				<h1 class="header-south border-bottom"><b><span>Library South</span> Seating</h1></b>
 				<div id="waitz-plbs"></div>
 			</section>
                 </div>
@@ -155,11 +155,13 @@ const SEATING_DATA = 'https://waitz.io/live/calstatefullerton';
         const cardHtml = `
             <div class="card" background-color="white">
                 <div>
-                    <span class="lab-name"><h1>${name}</h1></span>
+                    <span class="lab-name"><h1 style="width:9em;float:left;">${name}</h1></span>
+                    <div style="float:right;width:12em;">
                     <span class="lab-busy-context ${busyness_color}"><h1>${summary}
                         </br>
                         <span class="lab-busyness"><b>${busyness}%</b> full</span></h1>
                     </span>
+                    </div>
                 </div>
             </div>
         `
