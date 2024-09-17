@@ -82,14 +82,14 @@ const makeCard = (building, floor, name, busyness) => {
         html = `
             <div id="n${floor}" class="floor">
                 <h3>${name}</h3>
-                <span role="img" aria-label="${summary}" title="${summary}" class="${level} busyness-indicator"></span>
+                <span role="img" aria-label="${summary}" title="${busyness}% full" class="${level} busyness-indicator"></span>
             </div>
         `
     } else {
         html = `
             <div id="s${floor}" class="floor">
                 <h3>${name}</h3>
-                <span role="img" aria-label="${summary}" title="${summary}" class="${level} busyness-indicator"></span>
+                <span role="img" aria-label="${summary}" title="${busyness}% full" class="${level} busyness-indicator"></span>
             </div>
         `
     }
