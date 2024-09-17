@@ -61,20 +61,19 @@
 	background-image: url("./assets/user-low-occupancy.svg");
 	background-repeat: no-repeat;
 	background-position-x: right;
-	height: 20px;
-	margin-top: 2px;
+	height: 30px;
 }
 .busyness-indicator.medium {
 	background-image: url("./assets/user-medium-occupancy.svg");
 	background-repeat: no-repeat;
 	background-position-x: right;
-	height: 20px;
+	height: 30px;
 }
 .busyness-indicator.high {
 	background-image: url("./assets/user-high-occupancy.svg");
 	background-repeat: no-repeat;
 	background-position-x: right;
-	height: 20px;
+	height: 30px;
 }
 
 h3 {
