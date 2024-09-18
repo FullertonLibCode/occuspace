@@ -72,10 +72,15 @@ const makeCard = (building, floor, name, busyness) => {
         summary = 'Busy'
         level = 'medium';
     }
-    else
+    else if (busyness <= 100)
     {
         summary = 'Very Busy'
         level = 'high';
+    }
+    else
+    {
+        summary = 'Data unavailable'
+        level = 'unavailable'
     }
 
     if (building === "north") {
