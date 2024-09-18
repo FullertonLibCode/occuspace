@@ -82,25 +82,25 @@ div#4.icon { grid-area: d; }
 	width: 100%;
 }
 .busyness-indicator.low {
-	background-image: url("./assets/user-low-occupancy.svg");
+	background-image: url("./icons/user-low-occupancy.svg");
 	background-repeat: no-repeat;
 	background-position-x: right;
 	height: 45px;
 }
 .busyness-indicator.medium {
-	background-image: url("./assets/user-medium-occupancy.svg");
+	background-image: url("./icons/user-medium-occupancy.svg");
 	background-repeat: no-repeat;
 	background-position-x: right;
 	height: 45px;
 }
 .busyness-indicator.high {
-	background-image: url("./assets/user-high-occupancy.svg");
+	background-image: url("./icons/user-high-occupancy.svg");
 	background-repeat: no-repeat;
 	background-position-x: right;
 	height: 45px;
 }
 .busyness-indicator.unavailable {
-	background-image: url("./assets/user-unavailable-occupancy.svg");
+	background-image: url("./icons/user-unavailable-occupancy.svg");
 	background-repeat: no-repeat;
 	background-position-x: right;
 	height: 45px;

@@ -7,18 +7,18 @@ There is a [live demo](https://fullertonlibcode.github.io/occuspace/) for the we
 ```
 occuspace
 ├── LICENSE
-├── assets 
-│   ├── user-high-occupancy.svg
-│   ├── user-low-occupancy.svg
-│   ├── user-medium-occupancy.svg
-│   └── user-unavailable-occupancy.svg
-├── index.html
-├── script.js
-├── styles.css
-└── visual.html
+├── README.md
+├── assets
+│   ├── icons
+│   │   ├── user-high-occupancy.svg
+│   │   ├── user-low-occupancy.svg
+│   │   ├── user-medium-occupancy.svg
+│   │   └── user-unavailable-occupancy.svg
+│   ├── script.js
+│   └── styles.css
+└── index.html
 ```
-- assets: contains the busyness indicator icons
+- assets/icons: contains the busyness indicator icons
+- assets/script.js: a script to get and display data from Waitz.io
+- assets/styles.css: a style sheet to format the page
 - *index.html: the file to be displayed on monitors*
-- script.js: a script to get and display data from Waitz.io
-- styles.css: a style sheet to format the page
-- visual.html: a deprecated page
