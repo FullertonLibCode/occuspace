@@ -22,7 +22,9 @@ function getSeatingData()
 
     }).done(function(response){
 
-        $('#building').html('<h2 id="pln">North Building</h2><h2 id="pls">South Building</h2>'); // Clear container for refresh
+        $('#building').html(
+            '<h2 class="display-2" id="pln">North Building</h2><h2 class="display-2" id="pls">South Building</h2>'
+        ); // Clear container for refresh
 
         let floors = [];
 
@@ -86,14 +88,14 @@ const makeCard = (building, floor, name, busyness) => {
     if (building === "north") {
         html = `
             <div id="n${floor}" class="floor">
-                <h3>${name}</h3>
+                <h1>${name}</h1>
                 <span role="img" aria-label="${summary}" title="${busyness}% full" class="${level} busyness-indicator"></span>
             </div>
         `
     } else {
         html = `
             <div id="s${floor}" class="floor">
-                <h3>${name}</h3>
+                <h1>${name}</h1>
                 <span role="img" aria-label="${summary}" title="${busyness}% full" class="${level} busyness-indicator"></span>
             </div>
         `

@@ -49,6 +49,7 @@ div#4.icon { grid-area: d; }
     grid-template-areas:
         "a b c d";
     grid-gap: 10px;
+    margin-top: 20px;
 }
 @media only screen and (max-width: 1024px) {
     #legend {
@@ -61,14 +62,16 @@ div#4.icon { grid-area: d; }
     }
 }
 
+.container {
+    margin: 5px 49px 5px 49px;
+}
 .icon img {
-    height: 20px;
+    height: 30px;
     margin-right: 10px;
-    max-width: 65px;
 }
 .floor {
 	display: grid;
-	grid-template-columns: 1fr 2fr;
+	grid-template-columns: 2fr 1fr;
 	padding: 12px;
 	width: 100%;
     border: 2px solid #000;
@@ -82,27 +85,27 @@ div#4.icon { grid-area: d; }
 	background-image: url("./assets/user-low-occupancy.svg");
 	background-repeat: no-repeat;
 	background-position-x: right;
-	height: 30px;
+	height: 45px;
 }
 .busyness-indicator.medium {
 	background-image: url("./assets/user-medium-occupancy.svg");
 	background-repeat: no-repeat;
 	background-position-x: right;
-	height: 30px;
+	height: 45px;
 }
 .busyness-indicator.high {
 	background-image: url("./assets/user-high-occupancy.svg");
 	background-repeat: no-repeat;
 	background-position-x: right;
-	height: 30px;
+	height: 45px;
 }
 .busyness-indicator.unavailable {
 	background-image: url("./assets/user-unavailable-occupancy.svg");
 	background-repeat: no-repeat;
 	background-position-x: right;
-	height: 30px;
+	height: 45px;
 }
 
-h3 {
+#building h1 {
     margin: 0;
 }
