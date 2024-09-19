@@ -18,7 +18,7 @@ occuspace
 │   └── styles.css
 └── index.html
 ```
-- assets/icons: contains the busyness indicator icons
+- assets/icons: contains all icons
 - assets/script.js: a script to get and display data from Waitz.io
 - assets/styles.css: a style sheet to format the page
 - *index.html: the file to be displayed on monitors*
