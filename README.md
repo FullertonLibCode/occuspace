@@ -10,10 +10,7 @@ occuspace
 ├── README.md
 ├── assets
 │   ├── icons
-│   │   ├── user-high-occupancy.svg
-│   │   ├── user-low-occupancy.svg
-│   │   ├── user-medium-occupancy.svg
-│   │   └── user-unavailable-occupancy.svg
+│   │   └── *.svg
 │   ├── script.js
 │   └── styles.css
 └── index.html
