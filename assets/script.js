@@ -3,7 +3,8 @@
 //------------------------------------------------------------------------------
 
 const SEATING_DATA = 'https://waitz.io/live/calstatefullerton';
-const SEATING_DATA_REFRESH_RATE = 30000; // 30 seconds
+// const SEATING_DATA_REFRESH_RATE = 30000; // 30 seconds
+const SEATING_DATA_REFRESH_RATE = 300000000; // 30+ seconds
 
 $(document).ready(function(){
     $.support.cors = true;
@@ -24,7 +25,7 @@ function getSeatingData()
     }).done(function(response){ // Successful request
 
         $('#building').html(
-            '<h2 class="display-2" id="pln">North Building</h2><h2 class="display-2" id="pls">South Building</h2>'
+            '<img src="./assets/icons/pl-north-building.svg" id="pln"><img src="./assets/icons/pl-south-building.svg" id="pls">'
         ); // Clear container for refresh
 
         // Generate HTML
@@ -37,13 +38,10 @@ function getSeatingData()
             {
                 for(let i = 0; i < 6; i++)
                 {
-                    if (i < 4) { // North building
-                        let thisLocationCard = makeCard("north", i + 1, thisLocation.subLocs[i].name, thisLocation.subLocs[i].busyness);
-                        floors.push(thisLocationCard);
-                    } else { // South building
-                        let thisLocationCard = makeCard("south", i, thisLocation.subLocs[i].name, thisLocation.subLocs[i].busyness);
-                        floors.push(thisLocationCard);
-                    }
+                    const building = i < 4 ? "north" : "south";
+                    const floor = i < 4 ? i + 1 : i;
+                    let thisLocationCard = makeCard(building, floor, thisLocation.subLocs[i].name, thisLocation.subLocs[i].busyness);
+                    floors.push(thisLocationCard);
                 }
                 break;
             }
@@ -51,41 +49,46 @@ function getSeatingData()
 
         // Append HTML to #building
         $('#building').append(floors);
-        $('#building').append('<div id="s" class="floor"></div>') // Placeholder for South building
-    }).fail(function(errorobj, textstatus, error){ // Failed request
-        // Error handling
-        obj = JSON.stringify({
-            firstparam: {
-                value: errorobj,
-                type: typeof (errorobj)
-            },
-            secondparam: {
-                value: textstatus,
-                type: typeof (textstatus)
-            },
-            thirdparam: {
-                value: error,
-                type: typeof (error)
-            }
-        }, undefined, 1);
-
+        $('#building').append(makeLegend()); 
+    }).fail(function() { // Failed request
         // Generate HTML placeholder
         let locationNames = ["PLN 1st Floor", "PLN 2nd Floor", "PLN 3rd Floor", "PLN 4th Floor", "PLS 4th Floor", "PLS 5th Floor"];
         let floors = [];
         for (let i = 0; i < 6; i++) {
-            if (i < 4) {
-                let thisLocationCard = makeCard("north", i + 1, locationNames[i], -1);
-                floors.push(thisLocationCard);
-            } else {
-                let thisLocationCard = makeCard("south", i, locationNames[i], -1);
-                floors.push(thisLocationCard);
-            }
+            const building = i < 4 ? "north" : "south";
+            const floor = i < 4 ? i + 1 : i;
+            let thisLocationCard = makeCard(building, floor, locationNames[i], -1);
+            floors.push(thisLocationCard);
         }
 
         // Append HTML to #building
         $('#building').append(floors);
         $('#building').append('<div id="s" class="floor"></div>') // Placeholder for South building
     });
+}
+
+//---
+// Function to generate an HTML legend for busyness icons
+//---
+const makeLegend = () => {
+    let legend = `
+        <div id="s" class="floor">
+            <h2>Legend</h2>
+            <div id="legend">
+    `;
+
+    const imgs = ["low", "medium", "high", "unavailable"]
+    const text = ["Not Busy", "Busy", "Very Busy", "Data Unavailable"]
+    for (i = 0; i < 4; i++) {
+        legend += `
+            <div id="${i + 1} class="icon">
+                <img src="./assets/icons/user-${imgs[i]}-occupancy.svg">
+                <p>${text[i]}</p>
+            </div>`;
+    }
+    legend += "</div></div>"
+
+    return legend;
 }
 
 //---
@@ -99,7 +102,6 @@ const makeCard = (building, floor, name, busyness) => {
     
     let summary;
     let level;
-    let html;
     
     // Categorizing busyness
     if (busyness < 0)
@@ -124,21 +126,20 @@ const makeCard = (building, floor, name, busyness) => {
     }
 
     // Generating HTML
-    if (building === "north") {
-        html = `
-            <div id="n${floor}" class="floor">
-                <h1>${name}</h1>
-                <span role="img" aria-label="${summary}" title="${busyness}% full" class="${level} busyness-indicator"></span>
-            </div>
-        `
-    } else { // "south"
-        html = `
-            <div id="s${floor}" class="floor">
-                <h1>${name}</h1>
-                <span role="img" aria-label="${summary}" title="${busyness}% full" class="${level} busyness-indicator"></span>
-            </div>
-        `
-    }
-    
+    const floorID = (building === "north" ? "n" : "s") + floor;
+    const quietFloor =
+        floorID === "n3" || floorID === "s4" ?
+        `<img alt="Quiet Floor" src="./assets/icons/quiet-floor-transparent.svg">` :
+        `<div></div>`;
+
+    const html = `
+        <div id="${floorID}" class="${building} floor">
+            <h2>${name}</h2>
+            ${quietFloor}
+            <span role="img" aria-label="${summary}" title="${busyness}% full" class="${level} busyness-indicator"></span>
+            <h3>${busyness}%</h3>
+        </div>`;
+
+    console.log(html);
     return $(html)
 }
