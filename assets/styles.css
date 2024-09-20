@@ -77,7 +77,10 @@ body, h2, h3 {
 }
 .floor {
 	display: grid;
-	grid-template-columns: 4fr 2fr 3fr 1fr;
+	grid-template-columns: 4fr 1fr 4fr 1fr;
+    grid-template-areas:
+        "name quiet busyness percent";
+    justify-self: start;
 	padding: 12px;
 	width: 100%;
     border-style: ridge;
@@ -93,21 +96,20 @@ body, h2, h3 {
 .floor.south {
     border-color: #E06334;
 }
-.floor img {
-    height: 45px;
-}
 .floor h2 {
-    text-align: left;
+    grid-area: name;
+    justify-self: start;
     height: 45px;
     margin: 7px 0px 0px 0px;
 }
-.floor h3 {
+.floor img {
+    grid-area: quiet;
+    justify-self: start;
     height: 45px;
-    margin: 7px 0px 0px 0px;
-    text-align: right;
 }
 .busyness-indicator {
-    display: grid;
+    grid-area: busyness;
+    justify-self: end;
     margin: 7px 0px 0px 0px;
 	width: 100%;
 	background-repeat: no-repeat;
@@ -125,4 +127,10 @@ body, h2, h3 {
 }
 .busyness-indicator.unavailable {
 	background-image: url("./icons/user-unavailable-occupancy.svg");
+}
+.floor h3 {
+    grid-area: percent;
+    justify-self: end;
+    height: 45px;
+    margin: 7px 0px 0px 0px;
 }

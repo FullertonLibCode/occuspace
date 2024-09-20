@@ -128,7 +128,7 @@ const makeCard = (building, floor, name, busyness) => {
     const floorID = (building === "north" ? "n" : "s") + floor;
     const quietFloor =
         floorID === "n3" || floorID === "s4" ?
-        `<img alt="Quiet Floor" src="./assets/icons/quiet-floor-transparent.svg">` :
+        `<img alt="Quiet Floor" title="Quiet Floor" src="./assets/icons/quiet-floor-transparent.svg">` :
         `<div></div>`;
 
     const html = `
