@@ -3,8 +3,7 @@
 //------------------------------------------------------------------------------
 
 const SEATING_DATA = 'https://waitz.io/live/calstatefullerton';
-// const SEATING_DATA_REFRESH_RATE = 30000; // 30 seconds
-const SEATING_DATA_REFRESH_RATE = 300000000; // 30+ seconds
+const SEATING_DATA_REFRESH_RATE = 30000; // 30 seconds
 
 $(document).ready(function(){
     $.support.cors = true;
