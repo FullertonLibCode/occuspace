@@ -25,12 +25,12 @@ body, h2, h3 {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-areas: 
-        "pln pls"
-		". s5"
-		"n4 s4"
-		"n3 s"
-		"n2 s"
-		"n1 s";
+        "pls pln"
+		"s5 ."
+		"s4 n4"
+		"s n3"
+		"s n2"
+		"s n1";
     grid-gap: 10px;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -44,14 +44,14 @@ body, h2, h3 {
         display:grid;
         grid-template-columns: 1fr;
         grid-template-areas:
+            "pls"
+            "s5"
+            "s4"
             "pln"
             "n4"
             "n3"
             "n2"
-            "n1"
-            "pls"
-            "s5"
-            "s4";
+            "n1";
         grid-gap: 10px;
     }
     #s { display: none; }
