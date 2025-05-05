@@ -58,8 +58,8 @@ function getSeatingData()
 
         if(isInitialLoad) {
 			$('#building').html(`
-				<img src="../../_resources/images/icons/pl-north-building.svg" id="pln" alt="North Building">
-				<img src="../../_resources/images/icons/pl-south-building.svg" id="pls" alt="South Building">
+				<img src="assets/icons/pl-north-building.svg" id="pln" alt="North Building">
+				<img src="assets/icons/pl-south-building.svg" id="pls" alt="South Building">
 			`).append(floors).append(makeLegend());
 
             isInitialLoad = false;
