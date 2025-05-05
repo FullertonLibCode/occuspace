@@ -3,13 +3,15 @@
 //------------------------------------------------------------------------------
 
 const SEATING_DATA = 'https://waitz.io/live/calstatefullerton';
-const SEATING_DATA_REFRESH_RATE = 30000; // 30 seconds
+const SEATING_DATA_REFRESH_RATE = 10000; // 60 seconds
 
 $(document).ready(function(){
     $.support.cors = true;
     getSeatingData();
     setInterval(function(){getSeatingData();}, SEATING_DATA_REFRESH_RATE);
 });
+
+let isInitialLoad = true;
 
 function getSeatingData()
 {
@@ -22,11 +24,6 @@ function getSeatingData()
         url: SEATING_DATA
 
     }).done(function(response){ // Successful request
-
-        $('#building').html(
-            '<img src="./assets/icons/pl-north-building.svg" id="pln"><img src="./assets/icons/pl-south-building.svg" id="pls">'
-        ); // Clear container for refresh
-
         // Generate HTML
         let floors = [];
 
@@ -39,16 +36,34 @@ function getSeatingData()
                 {
                     const building = i < 4 ? "north" : "south";
                     const floor = i < 4 ? i + 1 : i;
-                    let thisLocationCard = makeCard(building, floor, thisLocation.subLocs[i].name, thisLocation.subLocs[i].busyness);
-                    floors.push(thisLocationCard);
+					const floorID = (building === "north" ? "n" : "s") + floor;
+					const subLoc = thisLocation.subLocs[i];
+                    const { level, summary } = getBusynessLevel(subLoc.busyness);
+
+                    if (isInitialLoad) {
+                        let thisLocationCard = makeCard(building, floor, subLoc.name, subLoc.busyness);
+                        floors.push(thisLocationCard);
+                    } else {
+                        const card = $(`#${floorID}`);
+						card.find('.busyness-indicator')
+							.attr('aria-label', summary)
+							.attr('title', `${subLoc.busyness}% full`)
+							.attr('class', `${level} busyness-indicator`);
+						card.find('h3').text(`${subLoc.busyness}%`);
+                    }
                 }
                 break;
             }
         }
 
-        // Append HTML to #building
-        $('#building').append(floors);
-        $('#building').append(makeLegend()); 
+        if(isInitialLoad) {
+			$('#building').html(`
+				<img src="../../_resources/images/icons/pl-north-building.svg" id="pln" alt="North Building">
+				<img src="../../_resources/images/icons/pl-south-building.svg" id="pls" alt="South Building">
+			`).append(floors).append(makeLegend());
+
+            isInitialLoad = false;
+        }
     }).fail(function() { // Failed request
         // Generate HTML placeholder
         let locationNames = ["PLN 1st Floor", "PLN 2nd Floor", "PLN 3rd Floor", "PLN 4th Floor", "PLS 4th Floor", "PLS 5th Floor"];
@@ -98,31 +113,7 @@ const makeLegend = () => {
 // @param {Number} busyness - Percentage amount of the location that is busy
 //---
 const makeCard = (building, floor, name, busyness) => {
-    
-    let summary;
-    let level;
-    
-    // Categorizing busyness
-    if (busyness < 0)
-    {
-        summary = 'Data unavailable'
-        level = 'unavailable'
-    }
-    else if (busyness < 45)
-    {
-        summary = 'Not Busy'
-        level = 'low';
-    }
-    else if (busyness < 72)
-    {
-        summary = 'Busy'
-        level = 'medium';
-    }
-    else
-    {
-        summary = 'Very Busy'
-        level = 'high';
-    }
+    const { level, summary } = getBusynessLevel(busyness);
 
     // Generating HTML
     const floorID = (building === "north" ? "n" : "s") + floor;
@@ -139,6 +130,27 @@ const makeCard = (building, floor, name, busyness) => {
             <h3>${busyness}%</h3>
         </div>`;
 
-    console.log(html);
     return $(html)
+}
+
+//---
+// Function to get busyness level and summary
+// @param {Number} busyness - Percentage of how busy a floor is
+//---
+function getBusynessLevel(busyness) {
+	let level, summary;
+	if (busyness < 0) {
+		summary = 'Data unavailable';
+		level = 'unavailable';
+	} else if (busyness < 45) {
+		summary = 'Not Busy';
+		level = 'low';
+	} else if (busyness < 72) {
+		summary = 'Busy';
+		level = 'medium';
+	} else {
+		summary = 'Very Busy';
+		level = 'high';
+	}
+	return { level, summary };
 }
